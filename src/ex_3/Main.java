@@ -26,6 +26,8 @@ public class Main {
 
 //        box2.moveToOtherBox(box3, 1); // ошибка, не соотвествующий тип фруктов!
 
+        box3.weight();
+        box2.weight();
         box1.howManyFruits();
         box3.howManyFruits();
 

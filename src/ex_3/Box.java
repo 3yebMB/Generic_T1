@@ -50,9 +50,13 @@ public class Box<T extends Fruits> {
         else System.out.println(ANSI_CYAN + "Коброки меют одинаковый вес."+ANSI_RESET);
     }
 
-    public double getWeightOfBox() {
-        double result = iBox.size()*iBox.get(0).getWeight();
+    public float getWeightOfBox() {
+        float result = iBox.size()*iBox.get(0).getWeight();
         return result;
+    }
+
+    public void weight() {
+        System.out.println("Коробка " + name + ANSI_RESET + " весит " + ANSI_PURPLE + getWeightOfBox() + ANSI_RESET + " у.е.");
     }
 
     public void forWhat(){
