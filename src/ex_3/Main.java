@@ -1,33 +1,36 @@
-package ex_2;
-
-import java.util.ArrayList;
+package ex_3;
 
 public class Main {
     public static void main(String[] args) {
-        Integer[] arr = new Integer[5];
-        String[] strArr = new String[5];
 
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = i+1;
-        }
+        Box<Apple> box1 = new Box<>("Box1");
+        box1.addFruit(new Apple());
+        box1.addFruit(new Apple());
+        box1.addFruit(new Apple());
 
-        for (int i = 0; i < strArr.length; i++) {
-            strArr[i] = "str_" + (i+1);
-        }
+        Box<Orange> box2 = new Box<>("Box2");
+        box2.addFruit(new Orange());
+        box2.addFruit(new Orange());
 
-//        String s = arr.getClass().getName();//.split(".");
-//        String[] s1 = s.split(".lang.");
-//        s1[1]=s1[1].substring(0, s1[1].length()-1);
+        box1.compare(box2);
 
-        convertToArrayList(arr);
-        convertToArrayList(strArr);
-    }
+        box1.addFruit(new Apple());
 
-    static <T> void convertToArrayList(T[] a) {
-        ArrayList<T> alist = new ArrayList<T>();
-        for (int i = 0; i < a.length; i++) {
-            alist.add(a[i]);
-        }
-        System.out.println(alist);
+        box2.compare(box1);
+
+        box2.forWhat();
+
+        Box<Apple> box3 = new Box<>("Box3");
+        box1.moveToOtherBox(box3, 10); // запрашиваем пересыпать больше фруктов, чем находится в коробке.
+                                             // просто пересыпятся все фрукты.
+
+//        box2.moveToOtherBox(box3, 1); // ошибка, не соотвествующий тип фруктов!
+
+        box1.howManyFruits();
+        box3.howManyFruits();
+
+        box2.howManyFruits();
+
+        box3.compare(box2);
     }
 }
