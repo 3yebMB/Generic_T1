@@ -1,5 +1,6 @@
-package ex_1;
+package ex_2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
@@ -12,21 +13,18 @@ public class Main {
         }
 
         for (int i = 0; i < strArr.length; i++) {
-            strArr[i] = "str_" + Integer.toString(i+1);
+            strArr[i] = "str_" + (i+1);
         }
 
-        changeElementsPosition(arr, 1, 4);
-        changeElementsPosition(strArr, 2, 3);
-
-        System.out.println(Arrays.asList(arr));
-        System.out.println(Arrays.asList(strArr));
+        convertToArrayList(arr);
+        convertToArrayList(strArr);
     }
 
-    static <T> void changeElementsPosition(T[] a, int b, int c) {
-        T tmp;
-
-        tmp = a[b-1];
-        a[b-1] = a[c-1];
-        a[c-1] = tmp;
+    static <T> void convertToArrayList(T[] a) {
+        ArrayList<T> alist = new ArrayList<T>();
+        for (int i = 0; i < a.length; i++) {
+            alist.add(a[i]);
+        }
+        System.out.println(alist);
     }
 }
