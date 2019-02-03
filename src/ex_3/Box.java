@@ -35,7 +35,15 @@ public class Box<T extends Fruits> {
             String[] str = fru.getClass().getName().split("ex_3.");
             typeof = ANSI_YELLOW + str[1];
         }
-        iBox.add(fru);
+        if (iBox.size() == 0)
+            iBox.add(fru);
+        else if (iBox.get(0).getClass().getName() == fru.getClass().getName())
+            iBox.add(fru);
+        else {
+            String stype = fru.getClass().getName();
+            String[] strype = fru.getClass().getName().split("ex_3.");
+            System.out.println(ANSI_RED + "Нельзя добавить " + strype[1] + " к " + typeof);
+        }
     }
 
     public String getName() {
@@ -50,8 +58,10 @@ public class Box<T extends Fruits> {
         else System.out.println(ANSI_CYAN + "Коброки меют одинаковый вес."+ANSI_RESET);
     }
 
-    public float getWeightOfBox() {
-        float result = iBox.size()*iBox.get(0).getWeight();
+    private float getWeightOfBox() {
+        float result = 0.0f;
+        if (iBox.size() != 0)
+            result = iBox.size()*iBox.get(0).getWeight();
         return result;
     }
 
@@ -64,14 +74,36 @@ public class Box<T extends Fruits> {
     }
 
     public void moveToOtherBox(Box<? super T> bbox, int count) {
-        int c = iBox.size();
-        if (count < iBox.size()) c = count;
+        if (bbox.iBox.size() == 0) {
+            int c = iBox.size();
+            if (count < iBox.size()) c = count;
 
-        for (int i = 0; i < c; i++) {
-            if (i == count) break;
-            bbox.addFruit(iBox.get(0));
-            this.removeFruit();
+            for (int i = 0; i < c; i++) {
+                if (i == count) break;
+                bbox.addFruit(iBox.get(0));
+                this.removeFruit();
+                if (iBox.size() == 0) typeof = null;
+            }
+            System.out.println("Из коробки " + name + ANSI_RESET + " пересыпано " + c + " " + typeof + ANSI_RESET + " в коробку " + bbox.getName() + ANSI_RESET);
+        } else {
+            if (iBox.get(0).getClass().getName() == bbox.getClass().getName()) {
+                int c = iBox.size();
+                if (count < iBox.size()) c = count;
+
+                for (int i = 0; i < c; i++) {
+                    if (i == count) break;
+                    bbox.addFruit(iBox.get(0));
+                    this.removeFruit();
+                    if (iBox.size() == 0) typeof = null;
+                }
+                System.out.println("Из коробки " + name + ANSI_RESET + " пересыпано " + c + " " + typeof + ANSI_RESET + " в коробку " + bbox.getName() + ANSI_RESET);
+            }
+            else {
+                String stype = bbox.iBox.get(0).getClass().getName();
+                String[] strype = stype.split("ex_3.");
+                System.out.println(ANSI_RED + "Нельзя перемещать " + strype[1] + " в коробку с " + typeof + ANSI_RESET);
+            }
         }
-        System.out.println("Из коробки " + name + ANSI_RESET + " пересыпано " + c + " " + typeof + ANSI_RESET + " в коробку " + bbox.getName() + ANSI_RESET);
+
     }
 }
